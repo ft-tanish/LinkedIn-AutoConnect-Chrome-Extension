@@ -1,19 +1,17 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 
-const Component = () => {
+const App = () => {
+
     const [isRunning, setIsRunning] = useState(false);
-    const intervalRef = useRef(null);
+
+  let interval: any;
 
     const handleConnect = () => {
-        console.log("1st")
         setIsRunning(true);
-        intervalRef.current = setInterval(() => {
-            console.log("2nd")
+        interval = setInterval(() => {
             const connection = document.querySelectorAll('.entity-result__item .artdeco-button');
             if (connection.length > 0) {
-                console.log("3rd")
-                connection.forEach((element) => {
-                    console.log("4th click")
+                connection.forEach((element: any) => {
                     element.click();
                     document.body.appendChild(element);
                 });
@@ -22,20 +20,18 @@ const Component = () => {
     };
 
     const handleStop = () => {
-        console.log("5th stop")
         setIsRunning(false);
-        clearInterval(intervalRef.current);
-        console.log("4th, stooped")
+        clearInterval(interval);
     };
 
     return (
         <div style={{ padding: "3rem" }}>
             {!isRunning ?
-                <button style={{ cursor: "pointer" }} onClick={handleConnect} disabled={isRunning}>
+                <button style={{ cursor: "pointer", border: "2px solid black" }} onClick={handleConnect} disabled={isRunning}>
                     Start Connecting
                 </button>
                 :
-                <button style={{ cursor: "pointer" }} onClick={handleStop} disabled={!isRunning}>
+                <button style={{ cursor: "pointer", border: "2px solid black" }} onClick={handleStop} disabled={!isRunning}>
                     Stop Connecting
                 </button>
             }
@@ -43,4 +39,4 @@ const Component = () => {
     );
 };
 
-export default Component;
+export default App;
